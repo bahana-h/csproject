@@ -14,7 +14,32 @@ public class TradeOrder
     private double price;
 
     // TODO complete class
-
+    public TradeOrder(Trader traDer, String symBol, boolean buYorder, boolean markeTorder, int numsHares, double prIce){
+        trader = traDer;
+        symbol = symBol;
+        buyOrder = buYorder;
+        marketOrder = markeTorder;
+        numShares = numsHares;
+        price=prIce;
+    }
+    public Trader getTrader(){
+        return trader;
+    }
+    public String getSymbol(){
+        return symbol;
+    }
+    public boolean getBuyOrder(){
+        return buyOrder;
+    }
+    public boolean marketOrder(){
+        return marketOrder;
+    }
+    public int getNumShares(){
+        return numShares;
+    }
+    public double getPrice(){
+        return price;
+    }
     //
     // The following are for test purposes only
     //
