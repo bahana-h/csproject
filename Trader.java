@@ -57,7 +57,7 @@ public class Trader implements Comparable<Trader>
     public boolean equals(Object other)
     {
         // check if other is not a trader
-        return true;
+        return true; // TODO fix
         
 
     }
@@ -99,7 +99,7 @@ public class Trader implements Comparable<Trader>
     // Places a given order with the brokerage by calling brokerage's placeOrder.
     public void placeOrder(TradeOrder other)
     {
-
+       // placeOrder(other);
     }
 
 
@@ -108,7 +108,8 @@ public class Trader implements Comparable<Trader>
     // TraderWindow's window listener when the "close window" button is clicked)
     public void quit()
     {
-        
+        // not made yet
+        // logout(this);
     }
 
 
