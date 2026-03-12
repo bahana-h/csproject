@@ -31,6 +31,9 @@ public class TradeOrder
     public boolean isBuy(){
         return buyOrder;
     }
+    public boolean isSell(){
+        return !buyOrder;
+    }
     public boolean isMarket(){
         return marketOrder;
     }
@@ -43,7 +46,6 @@ public class TradeOrder
     public double getPrice(){
         return price;
     }
-
     //the one in the documentation
     public void subtractShares(int shares){
         numShares = numShares-shares;
