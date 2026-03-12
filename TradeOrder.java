@@ -28,17 +28,25 @@ public class TradeOrder
     public String getSymbol(){
         return symbol;
     }
-    public boolean getBuyOrder(){
+    public boolean isBuy(){
         return buyOrder;
     }
-    public boolean marketOrder(){
+    public boolean isMarket(){
         return marketOrder;
     }
-    public int getNumShares(){
+    public boolean isLimit(){
+        return !marketOrder;
+    }
+    public int getShares(){
         return numShares;
     }
     public double getPrice(){
         return price;
+    }
+
+    //the one in the documentation
+    public void subtractShares(int shares){
+        numShares = numShares-shares;
     }
     //
     // The following are for test purposes only
