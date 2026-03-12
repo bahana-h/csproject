@@ -36,6 +36,26 @@ public class PriceComparator implements java.util.Comparator<TradeOrder>
         1: if order1 is limit and order2 is market.
         The difference in prices in cents: if both order1 and order2 are limit orders. In this last case, the difference returned is cents1 - cents2 or cents2 - cents1, depending on whether this is an ascending or descending comparator (ascending is true or false). You will need to round your answer otherwise floating point conversion to integer can cause errors. Be careful when rounding positive and negative values... */
     public int compare(TradeOrder order1, TradeOrder order2) {
+        // boolean ofr order1
+        boolean o1market = order1.
+        boolean o1limit = order1.
+        // for order 2
+        boolean o2market = order2.
+        boolean o2limit = order2.
+        // 0, -1, and 1
+        if (o1market == true && o2market == true) {
+            return 0;
+        } else if (o1market == true && o2limit == true) {
+            return -1;
+        } else if (o1limit = true && o2market) {
+            return 1;
+        } else { // both are limit orders
+            if (ascendingFlag == true) {
+                // cents1-2
+            } else { // descending
+                // cents2-1
+            }
+        }
         return 0;
     }
 
