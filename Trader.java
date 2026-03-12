@@ -108,7 +108,7 @@ public class Trader implements Comparable<Trader>
     // TraderWindow's window listener when the "close window" button is clicked)
     public void quit()
     {
-
+        
     }
 
 
