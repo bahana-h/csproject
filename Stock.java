@@ -23,9 +23,28 @@ public class Stock
         hiPrice=price;
         lastPrice=price;
         volume=0;
+        sellOrders = new PriorityQueue<>(new PriceComparator());//supposed to make an empty pq with a normal pC
+        buyOrders = new PriorityQueue<>(new PriceComparator(false));//supposed to make an empty pq with pc(false)
+        //dont think this is done
     }
 
-    
+    public String getQuote(){
+        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: "
+        String so = "none";
+        TradeOrder firstso = sellOrders.peek();
+        if (firstso != null)
+            result += firstso ;
+        else{
+            result+=so;
+        }
+        TradeOrder firstbo = buyOrders.peek();
+        if (firstbo != null)
+            result += firstbo ;
+        else{
+            result+=so;
+        }
+        return companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: ";
+    }
     //
     // The following are for test purposes only
     //
