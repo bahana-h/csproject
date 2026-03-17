@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  */
 public class Stock
 {
-    public static DecimalFormat money = new DecimalFormat( "0.00" );
+    public static DecimalFormat money = new DecimalFormat( "0.00" );//money.format(double) makes it 2 decimals
 
     private String stockSymbol;
     private String companyName;
@@ -28,22 +28,60 @@ public class Stock
         //dont think this is done
     }
 
-    public String getQuote(){
-        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: "
+    public String getQuote(){//IMPORTANT: check white space between words again
+        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: ";
         String so = "none";
         TradeOrder firstso = sellOrders.peek();
-        if (firstso != null)
-            result += firstso ;
+        if (firstso != null){
+            result += money.format(firstso.getPrice()) ;
+        result+= " size: " + sellOrders.size();}
         else{
-            result+=so;
+            result+=so;//ignore size
         }
+result += " Bid: ";
         TradeOrder firstbo = buyOrders.peek();
-        if (firstbo != null)
-            result += firstbo ;
+        if (firstbo != null){
+            result += money.format(firstbo.getPrice()) ;
+        result+= " size: " + buyOrders.size();}
         else{
-            result+=so;
+            result+=so;//just the word none
         }
-        return companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: ";
+        return result;
+
+//example:
+//   Giggle.com (GGGL)
+//   Price: 10.00  hi: 10.00  lo: 10.00  vol: 0
+//   Ask: 12.75 size: 300  Bid: 12.00 size: 500
+// Or:(if no sell/buy orders, no size)
+//   Giggle.com (GGGL)
+//   Price: 12.00  hi: 14.50  lo: 9.00  vol: 500
+//   Ask: none  Bid: 12.50 size: 200
+    }
+
+    public void placeOrder(TradeOrder order){//CHECK WHITE SPACE THINGS
+        if (order.isBuy()){
+            buyOrders.add(order);}
+        else
+            sellOrders.add(order);
+//   New order:  Buy GGGL (Giggle.com)
+//   200 shares at $38.00
+// Or, for market orders:
+//   New order:  Sell GGGL (Giggle.com)
+//   150 shares at market
+        String msg = "New order:  ";
+        if(order.isBuy()){
+            msg += "Buy " + stockSymbol + " (" + companyName + ")\n";
+            
+
+        }
+        order.getTrader().mailbox().add(msg);
+
+
+        executeOrders();
+    }
+
+    protected void executeOrders(){//what is protected??? thats what the doc said to use...
+
     }
     //
     // The following are for test purposes only
