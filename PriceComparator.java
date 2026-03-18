@@ -1,7 +1,7 @@
 /**
  * A price comparator for trade orders.
  */
-public class PriceComparator implements java.util.Comparator<TradeOrder>
+public class PriceComparator implements java.util.Comparator<TradeOrder> // hannah
 {
     // i think its ascending flag
     private boolean ascendingFlag;

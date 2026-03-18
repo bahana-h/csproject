@@ -7,7 +7,7 @@ import java.util.*;
  * list a new stock, request a quote for a given stock symbol, and to place a
  * specified trade order.
  */
-public class StockExchange
+public class StockExchange // hannah
 {
     private Map<String, Stock> listedStocks;
     
