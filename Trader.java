@@ -29,6 +29,9 @@ public class Trader implements Comparable<Trader>
         brokerage = b;
         screenName = n;
         password = p;
+
+        // also need to make the mailbox
+        mailbox = new LinkedList<String>();
     }
 
     // methods
@@ -38,7 +41,7 @@ public class Trader implements Comparable<Trader>
     public int compareTo(Trader other)
     {
         return screenName.compareToIgnoreCase(other.screenName);
-        
+
     }
 
     //Indicates whether some other trader is "equal to" this one, 
@@ -47,8 +50,12 @@ public class Trader implements Comparable<Trader>
     // if other is not an instance of Trader.
     public boolean equals(Object other)
     {
-        // check if other is not a trader
-        return true; // TODO fix
+        // the class exception
+        Trader otherTrader = (Trader) other;
+
+
+        // blind compariosn of screen names
+        return screenName.equalsIgnoreCase(otherTrader.screenName);
         
 
     }
@@ -66,7 +73,10 @@ public class Trader implements Comparable<Trader>
     public void getQuote(String symbol)
     {
         // call brokerage's get quote
-        return;
+        // figured out how to call methods
+        // from other places
+
+        brokerage.getQuote(symbol, this);
     }
 
 
@@ -75,7 +85,7 @@ public class Trader implements Comparable<Trader>
     public boolean hasMessages()
     {
         //return WHATEVER MESSAGE CONTAINER.isEmpty();
-        return true;
+        return !mailbox.isEmpty();
     }
 
     // Sets a new TraderView for this trader and saves a reference to it in myView. 
@@ -83,14 +93,21 @@ public class Trader implements Comparable<Trader>
     // by calling myView.showMessage(msg) for each message.
     public void setView(TraderView view)
     {
+        // set the view
+        myView = view;
 
+        // remove and display
+        while (!mailbox.isEmpty())
+        {
+            myView.showMessage(mailbox.remove());
+        }
     }
 
 
     // Places a given order with the brokerage by calling brokerage's placeOrder.
     public void placeOrder(TradeOrder other)
     {
-       // placeOrder(other);
+       brokerage.placeOrder(order);
     }
 
 
@@ -101,6 +118,12 @@ public class Trader implements Comparable<Trader>
     {
         // not made yet
         // logout(this);
+
+        // call brokerage's
+        brokerage.logout(this);
+        
+        // set view to null
+        myView = null;
     }
 
 
@@ -110,6 +133,18 @@ public class Trader implements Comparable<Trader>
     // by calling myView.showMessage(msg) for each msg in the mailbox.
     public void receiveMessage(String msg)
     {
+        // add the msg
+        mailbox.add(msg);
+        
+        // if logged
+        if (myView != null)
+        {
+            // show every message
+            while (!mailbox.isEmpty())
+            {
+                myView.showMessage(mailbox.remove());
+            }
+        }
 
     }
 
