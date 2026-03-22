@@ -10,9 +10,42 @@ public class Brokerage implements Login
     private Set<Trader> loggedTraders;
     private StockExchange exchange;
 
-    // TODO complete class
+    // constructor
+
+    // Constructs new brokerage affiliated with a given stock exchange. 
+    // Initializes the map of traders to an empty map (a TreeMap), 
+    // keyed by trader's name; 
+    // initializes the set of active (logged-in) traders to an empty set (a TreeSet).
+    public Brokerage( StockExchange exchange)
+    {
+        // new borkerage with an exchange
+        this.exchange = exchange;
+
+        // intiliaze map of traders
+        traders = new TreeMap<String, Trader>();
+
+        // set of active traders
+        loggedTraders = new TreeSet<Trader>();
+
+    }
+
+    // methods
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /////////////////////////////////////////////// tests
     //
     // The following are for test purposes only
     //
