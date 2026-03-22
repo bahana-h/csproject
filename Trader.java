@@ -37,17 +37,8 @@ public class Trader implements Comparable<Trader>
     // by comparing their screen names case blind.
     public int compareTo(Trader other)
     {
-        if (screenName == other.screenName)
-        {
-            return 1;
-        }
-
-        else
-        {
-            return 0;
-        }
-
-
+        return screenName.compareToIgnoreCase(other.screenName);
+        
     }
 
     //Indicates whether some other trader is "equal to" this one, 
