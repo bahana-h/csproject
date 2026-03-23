@@ -31,6 +31,35 @@ public class Brokerage implements Login
 
     // methods
 
+    // Tries to register a new trader with a given screen name and password. 
+    // If successful, creates a Trader object for this trader
+    //  and adds this trader to the map of all traders (using the screen name as the key).
+
+    //0 if successful, or an error code (a negative integer) if failed:
+    //-1 -- invalid screen name (must be 4-10 chars)
+    //-2 -- invalid password (must be 2-10 chars)
+    //-3 -- the screen name is already taken.
+    public int addUser(String name, String password)
+    {
+        // if doesn't meet conditions
+        return -1;
+        return -2;
+        return -3;
+
+        // if good
+        return 0;
+    }
+
+    //Removes a specified trader 
+    // from the set of logged-in traders. 
+    // The trader may be assumed 
+    // to logged in already
+
+    public void logout(Trader trader)
+    {
+
+    }
+
     
 
 
