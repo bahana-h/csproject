@@ -74,7 +74,7 @@ public class StockExchange // hannah
             // if does contain: pplaces it for given stock
             Stock found = listedStocks.get(symbol);
             // and then use that to place order using stock,placeorder
-            found.placeOrder();
+            found.placeOrder(order);
         }
     }
 
