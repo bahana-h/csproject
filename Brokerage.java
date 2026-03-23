@@ -60,6 +60,23 @@ public class Brokerage implements Login
 
     }
 
+    // does oppostie of logout
+    public int login(Trader trader)
+    {
+        return 0;
+
+    }
+
+    public void getQuote(String symbol, Trader trader)
+    {
+
+    }
+
+    public void placeOrder(TradeOrder order)
+    {
+
+    }
+
     
 
 
