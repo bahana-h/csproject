@@ -142,14 +142,19 @@ public class Brokerage implements Login
 
     }
 
+    //equests a quote for a given stock from the stock exachange 
+    //and passes it along to the trader by calling trader's receiveMessage method.
     public void getQuote(String symbol, Trader trader)
     {
-
+        String gottenQuote = exchange.getQuote(symbol);
+        // send it to trader
+        trader.receiveMessage(gottenQuote);
     }
 
+    // jst place it on the exchange
     public void placeOrder(TradeOrder order)
     {
-
+        exchange.placeOrder(order);
     }
 
     
