@@ -41,12 +41,36 @@ public class Brokerage implements Login
     //-3 -- the screen name is already taken.
     public int addUser(String name, String password)
     {
-        // if doesn't meet conditions
-        //return -1;
-        //return -2;
-        //return -3;
+        // invalid screen name
+        // not between 4 or 10 char
 
-        // if good
+        if (name.length() < 4 || name.length() > 10)
+        {
+            return -1;
+        }
+
+        // invalid password
+        // not between 2 or 10
+        if (password.length() < 2 || password.length() > 10)
+        {
+            return -2;
+        }
+
+        // screen name already taken
+        // so if the name can be found in the colleciton of traders
+        // ooh fun contains key cuz it's a map
+        if (traders.containsKey(name))
+        {
+            return -3;
+        }
+
+
+        // now to actualy adding the user 
+        // just add the object to the map
+        Trader trader = new Trader(this, name, password);
+        traders.put(name, trader);
+
+        // all good
         return 0;
     }
 
@@ -61,7 +85,7 @@ public class Brokerage implements Login
     }
 
     // does oppostie of logout
-    public int login(Trader trader)
+    public int login(String name, String password)
     {
         return 0;
 
