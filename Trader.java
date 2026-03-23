@@ -107,7 +107,7 @@ public class Trader implements Comparable<Trader>
     // Places a given order with the brokerage by calling brokerage's placeOrder.
     public void placeOrder(TradeOrder other)
     {
-       brokerage.placeOrder(order);
+       brokerage.placeOrder(other);
     }
 
 
