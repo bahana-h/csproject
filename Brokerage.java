@@ -74,19 +74,70 @@ public class Brokerage implements Login
         return 0;
     }
 
-    //Removes a specified trader 
+    //Removes a specified trader donedone
     // from the set of logged-in traders. 
     // The trader may be assumed 
     // to logged in already
 
+    // logout just removes it from set
     public void logout(Trader trader)
     {
-
+        loggedTraders.remove(trader);
     }
 
     // does oppostie of logout
+    // requirements
+    //Tries to login a trader with a given screen name and password. 
+    // If no messages are waiting for the trader, sends a "Welcome to SafeTrade!" 
+    //message to the trader. Adds the trader to the set of all logged-in traders.
+
+    //retuns
+    //0 if successful, or an error code (a negative integer) if failed:
+    //-1 -- screen name not found
+    //-2 -- invalid password
+    //-3 -- user is already logged in.
+
     public int login(String name, String password)
     {
+        // identify whoever's loging in and get their info
+        Trader loggingIn = traders.get(name);
+
+        // screen name not there
+        if(loggingIn == null)
+        {
+            return -1;
+        }
+        
+        // invalid password
+        // highlighted yellow can't compare strings with ==
+        if(loggingIn.getPassword().equals(password))
+        {
+            return -2;
+        }
+
+        // user already logged in
+        // check if alr in logged in base
+        if (loggedTraders.contains(loggingIn))
+        {
+            return -3;
+        }
+
+        // alr they passed the tests
+        // jst log them in
+        // by adding them to the logged base
+        loggedTraders.add(loggingIn);
+
+        // dispay all the messages
+        // so if none are there just send them the welcome
+
+        if(!loggingIn.hasMessages())
+        {
+            loggingIn.receiveMessage("Welcome to SafeTrade!");
+        }
+
+
+
+        // all good
         return 0;
 
     }
