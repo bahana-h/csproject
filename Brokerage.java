@@ -42,9 +42,9 @@ public class Brokerage implements Login
     public int addUser(String name, String password)
     {
         // if doesn't meet conditions
-        return -1;
-        return -2;
-        return -3;
+        //return -1;
+        //return -2;
+        //return -3;
 
         // if good
         return 0;
