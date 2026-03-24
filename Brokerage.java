@@ -110,7 +110,7 @@ public class Brokerage implements Login
         
         // invalid password
         // highlighted yellow can't compare strings with ==
-        if(loggingIn.getPassword().equals(password))
+        if(!loggingIn.getPassword().equals(password))
         {
             return -2;
         }
