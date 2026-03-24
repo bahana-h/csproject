@@ -19,9 +19,18 @@ public class MyTests_Brokerage {
         brokerageConstructorTest();
         addUserTest();
         logoutTest();
-        //loginTest();
+        loginTest();
         getQuoteTest();
         placeOrderTest();
+
+        
+        //getTradersTest();
+        //getLoggedTradersTest();
+        //getExchangeTest();
+    
+
+        // TO SRING TESTTTUHH
+        //toStringTest();
     }
 
 
@@ -78,9 +87,27 @@ public class MyTests_Brokerage {
             plzWork.getQuote("GGGL", theTrader);
         }
 
+
+
         public static void placeOrderTest()
         {
             plzWork.placeOrder(theTradeOrder);
         }
 
+
+
+        public static void getTradersTest()
+        {
+            plzWork.getTraders();
+        }
+
+        public static void getLoggedTradersTest()
+        {
+            plzWork.getLoggedTraders();
+        }
+
+        public static void getExchangeTest()
+        {
+            plzWork.getExchange();
+        }
 }
