@@ -5,7 +5,7 @@ public class MyTests_Brokerage {
         static StockExchange theExchange = new StockExchange();
         static Brokerage plzWork = new Brokerage(theExchange);
         static Trader theTrader = new Trader(plzWork, "name", "password");
-
+            
         // public TradeOrder(Trader traDer, String symBol, boolean buYorder, boolean markeTorder, int numsHares, double prIce)
         static TradeOrder theTradeOrder = new TradeOrder(theTrader, "GGGL", true, true, 54, 150.00);
 
