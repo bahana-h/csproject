@@ -47,17 +47,17 @@ public class PriceComparator implements java.util.Comparator<TradeOrder> // hann
             return 0;
         } else if (o1market == true && o2limit == true) {
             return -1;
-        } else if (o1limit = true && o2market) {
+        } else if (o1limit = true && o2market == true) {
             return 1;
         } else { // both are limit orders
             double price1 = order1.getPrice();
             double price2 = order2.getPrice();
             if (ascendingFlag == true) {
                 //cents1-2
-                return (int)Math.round(price1 - price2);
+                return (int)Math.round((price1 - price2)*100);
             } else { // descending
                 // cents2-1
-                return (int)Math.round(price2 - price1);
+                return (int)Math.round((price2 - price1)*100);
             }
         }
     }
