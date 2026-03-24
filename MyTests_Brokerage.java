@@ -37,7 +37,9 @@ public class MyTests_Brokerage {
         // test for constructor
         private static void brokerageConstructorTest()
         {
-            Brokerage testBrokerage = new Brokerage(null);
+            // already done with the fields ig 
+            // this is jst messing things up
+            // i believe
         }
 
 
@@ -67,6 +69,8 @@ public class MyTests_Brokerage {
             plzWork.logout(theTrader);
         }
 
+        // missing lines
+        // TODO: fix
         public static void loginTest()
         {
             // don't know if i should put the first login first or last...
