@@ -121,6 +121,8 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
+            ts = sellOrders.peek();
+        tb = buyOrders.peek();
         }
         if((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())){
             //step 2 at lim order price
@@ -159,6 +161,8 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
+            ts = sellOrders.peek();
+        tb = buyOrders.peek();
         }
         if(ts.isMarket()&&tb.isMarket()){
             //step 2 at last sale price
@@ -190,9 +194,9 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-        }
-        ts = sellOrders.peek();
+            ts = sellOrders.peek();
         tb = buyOrders.peek();
+        }
     }
     }
     //
