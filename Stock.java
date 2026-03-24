@@ -90,7 +90,7 @@ result += " Bid: ";
         TradeOrder tb = buyOrders.peek();//top
         while((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
         ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
-    )||(ts.isMarket()&&tb.isMarket()))
+    )||(ts.isMarket()&&tb.isMarket())){
         if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
             int ss = 0;
@@ -191,7 +191,9 @@ result += " Bid: ";
                 buyOrders.remove();
             }
         }
-
+        ts = sellOrders.peek();
+        tb = buyOrders.peek();
+    }
     }
     //
     // The following are for test purposes only
