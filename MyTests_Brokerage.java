@@ -24,9 +24,9 @@ public class MyTests_Brokerage {
         placeOrderTest();
 
         
-        //getTradersTest();
-        //getLoggedTradersTest();
-        //getExchangeTest();
+        getTradersTest();
+        getLoggedTradersTest();
+        getExchangeTest();
     
 
         // TO SRING TESTTTUHH
@@ -109,5 +109,10 @@ public class MyTests_Brokerage {
         public static void getExchangeTest()
         {
             plzWork.getExchange();
+        }
+
+        public static void toStringTest()
+        {
+            //
         }
 }
