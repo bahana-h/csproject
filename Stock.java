@@ -71,8 +71,13 @@ result += " Bid: ";
         String msg = "New order:  ";
         if(order.isBuy()){
             msg += "Buy " + stockSymbol + " (" + companyName + ")\n";
-            
-
+            msg+= order.getShares() + " shares at "+ money.format(order.getPrice());
+            buyOrders.add(order);
+        }
+        else{
+            msg += "Sell " + stockSymbol + " (" + companyName + ")\n";
+            msg+= order.getShares() + " shares at market";
+            sellOrders.add(order);
         }
         order.getTrader().mailbox().add(msg);
 
@@ -81,6 +86,111 @@ result += " Bid: ";
     }
 
     protected void executeOrders(){//what is protected??? thats what the doc said to use...
+        TradeOrder ts = sellOrders.peek();//top
+        TradeOrder tb = buyOrders.peek();//top
+        while((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
+    )||(ts.isMarket()&&tb.isMarket()))
+        if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
+            //step 2 at sell order price
+            int ss = 0;
+            if(ts.getShares()<tb.getShares()){
+                tb.subtractShares(ts.getShares());
+                ss = ts.getShares();
+                ts.subtractShares(ts.getShares());
+            }
+            else{
+                ts.subtractShares(tb.getShares());
+                tb.subtractShares(tb.getShares());
+                
+                 ss = tb.getShares();
+            }//update prices here
+            if(ts.getPrice()< loPrice)
+                loPrice = ts.getPrice();
+            if(ts.getPrice()> hiPrice)
+                hiPrice = ts.getPrice();
+            volume += ss;//check...
+            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
+            tb.getTrader().mailbox().add(msgtoBuyer);
+            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
+            ts.getTrader().mailbox().add(msgtoSeller);
+            
+            if(ts.getShares()==0){
+                sellOrders.remove();
+            }
+            if(tb.getShares()==0){
+                buyOrders.remove();
+            }
+        }
+        if((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())){
+            //step 2 at lim order price
+            int ss = 0;
+            if(ts.getShares()<tb.getShares()){
+                tb.subtractShares(ts.getShares());
+                ss = ts.getShares();
+                ts.subtractShares(ts.getShares());
+            }
+            else{
+                ts.subtractShares(tb.getShares());
+                tb.subtractShares(tb.getShares());
+                
+                 ss = tb.getShares();
+            }//update prices here
+            double limorderpr = 0;
+            if (tb.isLimit()){
+                limorderpr=tb.getPrice();
+            }
+            else{
+                limorderpr=ts.getPrice();
+            }
+            if(limorderpr< loPrice)
+                loPrice = limorderpr;
+            if(limorderpr> hiPrice)
+                hiPrice = limorderpr;
+            volume += ss;//check...
+            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt" + money.format(ss*limorderpr);
+            tb.getTrader().mailbox().add(msgtoBuyer);
+            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt" + money.format(ss*limorderpr);
+            ts.getTrader().mailbox().add(msgtoSeller);
+            
+            if(ts.getShares()==0){
+                sellOrders.remove();
+            }
+            if(tb.getShares()==0){
+                buyOrders.remove();
+            }
+        }
+        if(ts.isMarket()&&tb.isMarket()){
+            //step 2 at last sale price
+            int ss = 0;
+            if(ts.getShares()<tb.getShares()){
+                tb.subtractShares(ts.getShares());
+                ss = ts.getShares();
+                ts.subtractShares(ts.getShares());
+            }
+            else{
+                ts.subtractShares(tb.getShares());
+                tb.subtractShares(tb.getShares());
+                
+                 ss = tb.getShares();
+            }//update prices here
+            if(lastPrice< loPrice)
+                loPrice = lastPrice;
+            if(lastPrice> hiPrice)
+                hiPrice = lastPrice;
+            volume += ss;//check...
+            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(lastPrice) + " amt" + money.format(ss*lastPrice);
+            tb.getTrader().mailbox().add(msgtoBuyer);
+            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(lastPrice) + " amt" + money.format(ss*lastPrice);
+            ts.getTrader().mailbox().add(msgtoSeller);
+            
+            if(ts.getShares()==0){
+                sellOrders.remove();
+            }
+            if(tb.getShares()==0){
+                buyOrders.remove();
+            }
+        }
 
     }
     //
