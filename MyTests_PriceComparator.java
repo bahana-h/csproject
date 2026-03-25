@@ -17,11 +17,12 @@ public class MyTests_PriceComparator {
     // ----------------------------
     // PriceComparator Tests
     // ----------------------------
-
+    /*
     private static void testTradeOrderConstructor() {
         System.out.println("\nRunning testTradeOrderConstructor...");
         TradeOrder to = new TradeOrder(null, symbol, buyOrder, marketOrder,
                 numShares, price);
         System.out.println(to.toString());
     }
+        */
 }

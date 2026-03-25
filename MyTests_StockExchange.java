@@ -52,7 +52,10 @@ public class MyTests_StockExchange {
     private static void testStockExchangePlaceOrder1() { // when placeorder NOT found
         System.out.println("\nRunning testStockExchangePlaceOrder1...");
         StockExchange hehehehe = new StockExchange();
-        TradeOrder test = new TradeOrder(null, "HEH", true, true, 5, 0);
+        // idk apparently this is necessary cuz or else u have no trader to use
+        Brokerage ahhhh = new Brokerage(hehehehe);
+        Trader testing = new Trader(ahhhh, null, null);
+        TradeOrder test = new TradeOrder(testing, "HEH", true, true, 5, 0);
         System.out.println("Expected: HEH not found");
         System.out.println("Actual: ");
         hehehehe.placeOrder(test);
@@ -62,7 +65,10 @@ public class MyTests_StockExchange {
         System.out.println("\nRunning testStockExchangePlaceOrder2...");
         StockExchange hehehehehe = new StockExchange();
         hehehehehe.listStock("EHE", "whateverhehehehheheahea", 0);
-        TradeOrder test = new TradeOrder(null, "EHE", true, true, 5, 0);
+        Brokerage yikes = new Brokerage(hehehehehe);
+        Trader buying = new Trader(yikes, "buying", "erm");
+
+        TradeOrder buy = new TradeOrder(testing, "EHE", true, true, 5, 0);
         System.out.println("Expected: no error - order placed");
         System.out.println("Actual: ");
         hehehehehe.placeOrder(test);
