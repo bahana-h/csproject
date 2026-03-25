@@ -59,10 +59,13 @@ result += " Bid: ";
     }
 
     public void placeOrder(TradeOrder order){//CHECK WHITE SPACE THINGS
+        // hnnah comments: omgs hopefully i didnt break this T_T
+        /*
         if (order.isBuy()){
             buyOrders.add(order);}
         else
             sellOrders.add(order);
+        */
 //   New order:  Buy GGGL (Giggle.com)
 //   200 shares at $38.00
 // Or, for market orders:
@@ -90,13 +93,14 @@ result += " Bid: ";
         TradeOrder tb = buyOrders.peek();//top
 
         // hannah edits - because stockexchagne isnt working properly
+        // omgs its still not workwoenkaflndklfasdm
         if (ts == null || tb == null) {
             return;
         }
-
-        while((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        // hannah edits - added hte null stuff -> hopefully it helps??????
+        while(ts!=null && tb !=null && ((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
         ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
-    )||(ts.isMarket()&&tb.isMarket())){
+    )||(ts.isMarket()&&tb.isMarket()))){
         if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
             int ss = 0;
@@ -115,6 +119,7 @@ result += " Bid: ";
                 loPrice = ts.getPrice();
             if(ts.getPrice()> hiPrice)
                 hiPrice = ts.getPrice();
+            lastPrice = ts.getPrice();
             volume += ss;//check...
             String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
             tb.getTrader().mailbox().add(msgtoBuyer);
@@ -128,9 +133,9 @@ result += " Bid: ";
                 buyOrders.remove();
             }
             ts = sellOrders.peek();
-        tb = buyOrders.peek();
-        }
-        if((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())){
+            tb = buyOrders.peek();
+        } // hannah edits - idk stockexchange is having null pointer issues so im js adding this everywhere
+        if(ts!=null && tb!=null && ((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit()))){
             //step 2 at lim order price
             int ss = 0;
             if(ts.getShares()<tb.getShares()){
@@ -155,6 +160,7 @@ result += " Bid: ";
                 loPrice = limorderpr;
             if(limorderpr> hiPrice)
                 hiPrice = limorderpr;
+            lastPrice = limorderpr;
             volume += ss;//check...
             String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt" + money.format(ss*limorderpr);
             tb.getTrader().mailbox().add(msgtoBuyer);
@@ -170,7 +176,7 @@ result += " Bid: ";
             ts = sellOrders.peek();
         tb = buyOrders.peek();
         }
-        if(ts.isMarket()&&tb.isMarket()){
+        if(ts!=null && tb!=null && ts.isMarket()&&tb.isMarket()){
             //step 2 at last sale price
             int ss = 0;
             if(ts.getShares()<tb.getShares()){
