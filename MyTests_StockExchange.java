@@ -67,11 +67,14 @@ public class MyTests_StockExchange {
         hehehehehe.listStock("EHE", "whateverhehehehheheahea", 0);
         Brokerage yikes = new Brokerage(hehehehehe);
         Trader buying = new Trader(yikes, "buying", "erm");
-
-        TradeOrder buy = new TradeOrder(testing, "EHE", true, true, 5, 0);
+        TradeOrder buy = new TradeOrder(buying, "EHE", true, true, 5, 0);
+        Trader seling = new Trader(yikes, "seling", "erm");
+        TradeOrder sell = new TradeOrder(seling, "EHE", false, true, 5, 0);
         System.out.println("Expected: no error - order placed");
-        System.out.println("Actual: ");
-        hehehehehe.placeOrder(test);
+        System.out.print("Actual: ");
+        hehehehehe.placeOrder(sell);
+        hehehehehe.placeOrder(buy);
+        System.out.println("finished!");
     }
 
     private static void testStockExchangeToString() {

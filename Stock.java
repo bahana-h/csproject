@@ -88,6 +88,12 @@ result += " Bid: ";
     protected void executeOrders(){//what is protected??? thats what the doc said to use...
         TradeOrder ts = sellOrders.peek();//top
         TradeOrder tb = buyOrders.peek();//top
+
+        // hannah edits - because stockexchagne isnt working properly
+        if (ts == null || tb == null) {
+            return;
+        }
+
         while((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
         ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
     )||(ts.isMarket()&&tb.isMarket())){
