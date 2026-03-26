@@ -104,12 +104,12 @@ result += " Bid: ";
             return;
         }
         // hannah edits - added hte null stuff -> hopefully it helps??????
-        while(ts!=null && tb !=null && ((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        while(ts!=null && tb !=null || ((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
         ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
     )||(ts.isMarket()&&tb.isMarket()))){
         if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
-            int ss = 0;
+            int ss = 0; 
             if(ts.getShares()<tb.getShares()){
                 tb.subtractShares(ts.getShares());
                 ss = ts.getShares();
@@ -119,7 +119,7 @@ result += " Bid: ";
                 ts.subtractShares(tb.getShares());
                 tb.subtractShares(tb.getShares());
                 
-                 ss = tb.getShares();
+                 ss = tb.getShares();//need to store this for msg to buyer/seller later
             }//update prices here
             if(ts.getPrice()< loPrice)
                 loPrice = ts.getPrice();
@@ -138,8 +138,8 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-            ts = sellOrders.peek();
-            tb = buyOrders.peek();
+           // ts = sellOrders.peek();
+           // tb = buyOrders.peek();
         } // hannah edits - idk stockexchange is having null pointer issues so im js adding this everywhere
         if(ts!=null && tb!=null && ((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit()))){
             //step 2 at lim order price
@@ -179,8 +179,8 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-            ts = sellOrders.peek();
-        tb = buyOrders.peek();
+        //ts = sellOrders.peek();
+       // tb = buyOrders.peek();
         }
         if(ts!=null && tb!=null && ts.isMarket()&&tb.isMarket()){
             //step 2 at last sale price
@@ -212,9 +212,10 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-            ts = sellOrders.peek();
-        tb = buyOrders.peek();
+            
         }
+            ts = sellOrders.peek();
+            tb = buyOrders.peek();
     }
     }
     //
