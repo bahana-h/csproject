@@ -104,7 +104,7 @@ result += " Bid: ";
             return;
         }
         // hannah edits - added hte null stuff -> hopefully it helps??????
-        while(ts!=null && tb !=null || ((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        while(ts!=null && tb !=null && ((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
         ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
     )||(ts.isMarket()&&tb.isMarket()))){
         if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
