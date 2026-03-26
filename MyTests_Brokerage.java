@@ -30,7 +30,7 @@ public class MyTests_Brokerage {
     
 
         // TO SRING TESTTTUHH
-        //toStringTest();
+        toStringTest();
     }
 
 
@@ -117,6 +117,7 @@ public class MyTests_Brokerage {
 
         public static void toStringTest()
         {
-            //
+            Brokerage bee = new Brokerage(theExchange);
+            System.out.println("toString() returned: " + bee.toString());
         }
 }
