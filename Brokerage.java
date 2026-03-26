@@ -134,9 +134,7 @@ public class Brokerage implements Login
         {
             loggingIn.receiveMessage("Welcome to SafeTrade!");
         }
-
-
-
+        
         // all good
         return 0;
 

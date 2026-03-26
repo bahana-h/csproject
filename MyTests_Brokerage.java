@@ -83,7 +83,8 @@ public class MyTests_Brokerage {
             //-3 -- user is already logged in.
             plzWork.login("name", "password");
 
-            
+            // testing stuff
+            plzWork.login("k", "somepassword");
         }
 
         public static void getQuoteTest()
