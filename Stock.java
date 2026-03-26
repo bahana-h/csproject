@@ -80,7 +80,7 @@ result += " Bid: ";
         String msg = "New order:  ";
         if(order.isBuy()){
             msg += "Buy " + stockSymbol + " (" + companyName + ")\n";
-            msg+= order.getShares() + " shares at "+ money.format(order.getPrice());
+            msg+= order.getShares() + " shares at $"+ money.format(order.getPrice());
             buyOrders.add(order);
         }
         else{
@@ -90,7 +90,7 @@ result += " Bid: ";
                 msg+="market";
             }
             else{
-                msg+= money.format(order.getPrice());
+                msg+= "$"+money.format(order.getPrice());
             }
             sellOrders.add(order);
         }
