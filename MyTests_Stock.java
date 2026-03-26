@@ -17,7 +17,7 @@ public class MyTests_Stock {
     private static Trader s = new Trader(null, "seller", null);
 
 
-    public static void main() {
+    public static void test() {
 
         System.out.println("\n===== Stock Tests =====");
         testStockConstructor();
