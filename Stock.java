@@ -29,7 +29,7 @@ public class Stock
     }
 
     public String getQuote(){//IMPORTANT: check white space between words again
-        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + money.format(lastPrice) + " hi: " + money.format(hiPrice) + " lo: " + money.format(loPrice) + " vol: " + volume + "\n" + "Ask: ";
+        String result = companyName + " (" + stockSymbol + ")\n" + "Price: " + money.format(lastPrice) + " hi: " + money.format(hiPrice) + " lo: " + money.format(loPrice) + " vol: " + volume + "\n" + "Ask: ";
         String so = "none";
         TradeOrder firstso = sellOrders.peek();
         if (firstso != null){
@@ -111,8 +111,9 @@ result += " Bid: ";
         }
         // hannah edits - added hte null stuff -> hopefully it helps??????
         while((ts!=null && tb !=null) && (((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
-        ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
-    )||(ts.isMarket()&&tb.isMarket())))){
+        ))){
+    // ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
+    // )||(ts.isMarket()&&tb.isMarket())))
         if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
             int ss = 0; 
@@ -174,9 +175,9 @@ result += " Bid: ";
                 hiPrice = limorderpr;
             lastPrice = limorderpr;
             volume += ss;//check...
-            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt" + money.format(ss*limorderpr);
+            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
             tb.getTrader().mailbox().add(msgtoBuyer);
-            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt" + money.format(ss*limorderpr);
+            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
             ts.getTrader().mailbox().add(msgtoSeller);
             
             if(ts.getShares()==0){
