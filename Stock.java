@@ -88,7 +88,7 @@ result += " Bid: ";
             msg+= order.getShares() + " shares at market";
             sellOrders.add(order);
         }
-        order.getTrader().mailbox().add(msg);
+        order.getTrader().receiveMessage(msg);;
 
 
         executeOrders();
