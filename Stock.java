@@ -118,13 +118,13 @@ result += " Bid: ";
             //step 2 at sell order price
             int ss = 0; 
             if(ts.getShares()<tb.getShares()){
-                tb.subtractShares(ts.getShares());
                 ss = ts.getShares();
+                tb.subtractShares(ts.getShares());
                 ts.subtractShares(ts.getShares());
             }
             else{
-                ts.subtractShares(tb.getShares());
                 ss = tb.getShares();//need to store this for msg to buyer/seller later
+                ts.subtractShares(tb.getShares());
                 tb.subtractShares(tb.getShares());
                      
             }
@@ -138,7 +138,7 @@ result += " Bid: ";
             volume += ss;//check...sasha said its right
 
             String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
-            tb.getTrader().mailbox().add(msgtoBuyer);
+            tb.getTrader().receiveMessage(msgtoBuyer);
             String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
             ts.getTrader().receiveMessage(msgtoSeller);
             
@@ -179,6 +179,7 @@ result += " Bid: ";
                 hiPrice = limorderpr;
             lastPrice = limorderpr;
             volume += ss;//check...
+
             String msg2toBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
             tb.getTrader().receiveMessage(msg2toBuyer);
             String msg2toSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
