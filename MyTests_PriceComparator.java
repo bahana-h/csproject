@@ -70,7 +70,7 @@ public class MyTests_PriceComparator {
 
     private static void testPriceComparatorCompareLLFalse() {
         System.out.println("\nRunning testPriceComparatorCompareLLFalse...");
-        PriceComparator to = new PriceComparator(true);
+        PriceComparator to = new PriceComparator(false); // i js forgot to change this to false
         TradeOrder l1 = new TradeOrder(dos, symbol, buyOrder, limitOrder, 20, 1.00);
         TradeOrder l2 = new TradeOrder(dos, symbol, buyOrder, limitOrder, 1, 20.00);
         System.out.println("Expected: 1900"); // (20.00-1.00)*100 = 1900
