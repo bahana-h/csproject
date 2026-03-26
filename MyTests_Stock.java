@@ -21,7 +21,7 @@ public class MyTests_Stock {
 
         System.out.println("\n===== Stock Tests =====");
         testStockConstructor();
-        testGetQuoteNum1();
+        testStockGetQuote1();
     }
 
     private static void testStockConstructor() {
@@ -29,10 +29,11 @@ public class MyTests_Stock {
         System.out.println("Expected: GGGL, 10.00");
         System.out.println("Actual: " + to.getStockSymbol() + ", " + to.getLastPrice());
     }
-    private static void testGetQuoteNum1(){
+
+    private static void testStockGetQuote1(){
         System.out.println("\nRunning testGetQuote...");
         TradeOrder sell = new TradeOrder(b, "GGGL", false, false, 300, 12.75);
-    to.placeOrder(sell);
+        to.placeOrder(sell);
 //     Giggle.com (GGGL)
 //   Price: 10.00  hi: 10.00  lo: 10.00  vol: 0
 //   Ask: 12.75 size: 300  Bid: 12.00 size: 500
