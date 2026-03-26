@@ -85,7 +85,13 @@ result += " Bid: ";
         }
         else{
             msg += "Sell " + stockSymbol + " (" + companyName + ")\n";
-            msg+= order.getShares() + " shares at market";
+            msg+= order.getShares() + " shares at ";
+            if(order.isMarket()){
+                msg+="market";
+            }
+            else{
+                msg+= money.format(order.getPrice());
+            }
             sellOrders.add(order);
         }
         order.getTrader().receiveMessage(msg);;

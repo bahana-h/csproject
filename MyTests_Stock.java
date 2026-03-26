@@ -29,7 +29,9 @@ public class MyTests_Stock {
         System.out.println("Expected: GGGL, 10.00");
         System.out.println("Actual: " + to.getStockSymbol() + ", " + to.getLastPrice());
     }
-
+    private static void testMailboxAfterPlaceOrder(){
+        
+    }
     private static void testStockGetQuote1(){
         System.out.println("\nRunning testGetQuote...");
         TradeOrder sell = new TradeOrder(b, "GGGL", false, false, 300, 12.75);
