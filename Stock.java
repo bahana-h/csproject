@@ -29,11 +29,14 @@ public class Stock
     }
 
     public String getQuote(){//IMPORTANT: check white space between words again
-        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + lastPrice + " hi: " + hiPrice + " lo: " + loPrice + " vol: " + volume + "\n" + "Ask: ";
+        String result = companyName + "(" + stockSymbol + ")\n" + "Price: " + money.format(lastPrice) + " hi: " + money.format(hiPrice) + " lo: " + money.format(loPrice) + " vol: " + volume + "\n" + "Ask: ";
         String so = "none";
         TradeOrder firstso = sellOrders.peek();
         if (firstso != null){
-            result += money.format(firstso.getPrice()) ;
+            if(firstso.isMarket())
+                result+= "market";
+            else
+                result += money.format(firstso.getPrice()) ;
         result+= " size: " + sellOrders.size();}
         else{
             result+=so;//ignore size
@@ -41,7 +44,10 @@ public class Stock
 result += " Bid: ";
         TradeOrder firstbo = buyOrders.peek();
         if (firstbo != null){
-            result += money.format(firstbo.getPrice()) ;
+            if(firstbo.isMarket())
+                result+= "market";
+            else
+                result += money.format(firstbo.getPrice()) ;
         result+= " size: " + buyOrders.size();}
         else{
             result+=so;//just the word none
