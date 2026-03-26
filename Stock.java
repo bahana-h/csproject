@@ -110,11 +110,11 @@ result += " Bid: ";
             return;
         }
         // hannah edits - added hte null stuff -> hopefully it helps??????
-        while((ts!=null && tb !=null) && (((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
-        ))){
+        while((ts!=null && tb !=null) && !((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        )){
     // ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
     // )||(ts.isMarket()&&tb.isMarket())))
-        if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
+        //if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
             int ss = 0; 
             if(ts.getShares()<tb.getShares()){
@@ -124,20 +124,23 @@ result += " Bid: ";
             }
             else{
                 ts.subtractShares(tb.getShares());
+                ss = tb.getShares();//need to store this for msg to buyer/seller later
                 tb.subtractShares(tb.getShares());
-                
-                 ss = tb.getShares();//need to store this for msg to buyer/seller later
-            }//update prices here
+                     
+            }
+
+            //update prices here
             if(ts.getPrice()< loPrice)
-                loPrice = ts.getPrice();
+                loPrice = ts.getPrice();//new low price
             if(ts.getPrice()> hiPrice)
-                hiPrice = ts.getPrice();
+                hiPrice = ts.getPrice();//new high price
             lastPrice = ts.getPrice();
-            volume += ss;//check...
+            volume += ss;//check...sasha said its right
+
             String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
             tb.getTrader().mailbox().add(msgtoBuyer);
             String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(ts.getPrice()) + " amt" + money.format(ss*ts.getPrice());
-            ts.getTrader().mailbox().add(msgtoSeller);
+            ts.getTrader().receiveMessage(msgtoSeller);
             
             if(ts.getShares()==0){
                 sellOrders.remove();
@@ -145,12 +148,12 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-           // ts = sellOrders.peek();
-           // tb = buyOrders.peek();
-        } // hannah edits - idk stockexchange is having null pointer issues so im js adding this everywhere
+            ts = sellOrders.peek();
+            tb = buyOrders.peek();
+         // hannah edits - idk stockexchange is having null pointer issues so im js adding this everywhere
         if(ts!=null && tb!=null && ((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit()))){
             //step 2 at lim order price
-            int ss = 0;
+            
             if(ts.getShares()<tb.getShares()){
                 tb.subtractShares(ts.getShares());
                 ss = ts.getShares();
@@ -158,9 +161,10 @@ result += " Bid: ";
             }
             else{
                 ts.subtractShares(tb.getShares());
+                ss = tb.getShares();
                 tb.subtractShares(tb.getShares());
                 
-                 ss = tb.getShares();
+                 
             }//update prices here
             double limorderpr = 0;
             if (tb.isLimit()){
@@ -175,10 +179,10 @@ result += " Bid: ";
                 hiPrice = limorderpr;
             lastPrice = limorderpr;
             volume += ss;//check...
-            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
-            tb.getTrader().mailbox().add(msgtoBuyer);
-            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
-            ts.getTrader().mailbox().add(msgtoSeller);
+            String msg2toBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
+            tb.getTrader().receiveMessage(msg2toBuyer);
+            String msg2toSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(limorderpr) + " amt " + money.format(ss*limorderpr);
+            ts.getTrader().receiveMessage(msg2toSeller);
             
             if(ts.getShares()==0){
                 sellOrders.remove();
@@ -186,12 +190,12 @@ result += " Bid: ";
             if(tb.getShares()==0){
                 buyOrders.remove();
             }
-        //ts = sellOrders.peek();
-       // tb = buyOrders.peek();
+        ts = sellOrders.peek();
+        tb = buyOrders.peek();
         }
         if(ts!=null && tb!=null && ts.isMarket()&&tb.isMarket()){
             //step 2 at last sale price
-            int ss = 0;
+            //int ss = 0;
             if(ts.getShares()<tb.getShares()){
                 tb.subtractShares(ts.getShares());
                 ss = ts.getShares();
@@ -199,19 +203,22 @@ result += " Bid: ";
             }
             else{
                 ts.subtractShares(tb.getShares());
+                ss = tb.getShares();
                 tb.subtractShares(tb.getShares());
                 
-                 ss = tb.getShares();
-            }//update prices here
+                 
+            }
+            
+            //update prices here
             if(lastPrice< loPrice)
                 loPrice = lastPrice;
             if(lastPrice> hiPrice)
                 hiPrice = lastPrice;
             volume += ss;//check...
-            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(lastPrice) + " amt" + money.format(ss*lastPrice);
-            tb.getTrader().mailbox().add(msgtoBuyer);
-            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(lastPrice) + " amt" + money.format(ss*lastPrice);
-            ts.getTrader().mailbox().add(msgtoSeller);
+            String msg3toBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(lastPrice) + " amt " + money.format(ss*lastPrice);
+            tb.getTrader().receiveMessage(msg3toBuyer);
+            String msg3toSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(lastPrice) + " amt " + money.format(ss*lastPrice);
+            ts.getTrader().receiveMessage(msg3toSeller);
             
             if(ts.getShares()==0){
                 sellOrders.remove();
