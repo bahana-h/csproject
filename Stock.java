@@ -129,6 +129,7 @@ result += " Bid: ";
                 // and the limit orders match
             {
 
+            // alright this part is good
             int ss = 0; 
             if(ts.getShares()<tb.getShares()){
                 ss = ts.getShares();
@@ -141,7 +142,8 @@ result += " Bid: ";
                 tb.subtractShares(tb.getShares());
                      
             }
-
+/** 
+ * 
             //update prices here
             if(ts.getPrice()< loPrice)
                 loPrice = ts.getPrice();//new low price
@@ -163,6 +165,8 @@ result += " Bid: ";
             }
             ts = sellOrders.peek();
             tb = buyOrders.peek();
+
+
          // hannah edits - idk stockexchange is having null pointer issues so im js adding this everywhere
         if(ts!=null && tb!=null && ((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit()))){
             //step 2 at lim order price
@@ -244,8 +248,96 @@ result += " Bid: ";
         }
             ts = sellOrders.peek();
             tb = buyOrders.peek();
+
+            */
+        // alright so basically
+        // i just pushed that part under the rug
+        // compacted it in there
+        // let's get the right ideas down and then we can implement them
+
+        // we have to determine trade price
+        double tradePrice = 0;
+        // possibilities
+
+        // both trade market
+        // sell at last market price
+        if(ts.isMarket() && tb.isMarket())
+        {
+            tradePrice = lastPrice;
+        }
+
+        // both limit orders
+        // trade at the set price
+        else if(ts.isLimit() && tb.isLimit())
+        {
+            tradePrice = ts.getPrice();
+        }
+
+        // ok now we gotta deal with differnces
+        // just logic
+
+        // if buy is market and sell is limit
+        // use sell limit
+        else if (tb.isMarket())
+        {
+            tradePrice = ts.getPrice();
+        }
+
+        // if sell is market then buy limit
+        else if (ts.isMarket())
+        {
+            tradePrice = tb.getPrice();
+        }
+
+        //update prices here
+        // this part is correct too i think
+            if(ts.getPrice()< loPrice)
+                loPrice = ts.getPrice();//new low price
+            if(ts.getPrice()> hiPrice)
+                hiPrice = ts.getPrice();//new high price
+            lastPrice = ts.getPrice();
+            volume += ss;//check...sasha said its right
+
+
+        // the message part has some problems
+
+        // BUYER
+        // use trade price instead of ts.getprice basically
+        // annhilates mistakes
+            String msgtoBuyer = "You bought: "+ ss +" "+ stockSymbol + " at " + money.format(tradePrice) + " amt" + money.format(ss*tradePrice);
+            tb.getTrader().receiveMessage(msgtoBuyer);
+
+        // SELLER
+            String msgtoSeller = "You sold: "+ ss+" "+ stockSymbol + " at " + money.format(tradePrice) + " amt" + money.format(ss*tradePrice);
+            ts.getTrader().receiveMessage(msgtoSeller);
+
+        // this part's right too
+        // remove all the zeroed ones
+        if(ts.getShares()==0)
+            {
+                sellOrders.remove();
+            }
+
+        if(tb.getShares()==0)
+            {
+                buyOrders.remove();
+            }
+
+        
+        // reset everything back to what it needs to be
+        // and that's it for every while loop?
+        ts = sellOrders.peek();
+        tb = buyOrders.peek();
+
+
+
+
+
+
+        
+        }
     }
-    }
+
     //
     // The following are for test purposes only
     //
