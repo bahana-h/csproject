@@ -191,6 +191,11 @@ result += " Bid: ";
                 tb.subtractShares(tb.getShares());
                      
             }
+
+        // alrgith the behemoth below i just scavenged teh stuff that worked
+        // for future generations
+
+        
 /** 
  * 
             //update prices here
