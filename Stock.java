@@ -1,6 +1,6 @@
-import java.util.*;
 import java.lang.reflect.*;
 import java.text.DecimalFormat;
+import java.util.*;
 
 /**
  * Represents a stock in the SafeTrade project
@@ -110,12 +110,25 @@ result += " Bid: ";
             return;
         }
         // hannah edits - added hte null stuff -> hopefully it helps??????
-        while((ts!=null && tb !=null) && !((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
-        )){
+        //while((ts!=null && tb !=null) && !((ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice())
+        //)){
     // ||((ts.isLimit()&&tb.isMarket())||(ts.isMarket()&&tb.isLimit())
     // )||(ts.isMarket()&&tb.isMarket())))
         //if(ts.isLimit()&&tb.isLimit()&&tb.getPrice()>=ts.getPrice()){
             //step 2 at sell order price
+
+
+            // sashark edits
+            // before,
+            // a valid sale condition didn't even exist lmao
+            // because the loop ran when the orders DID NOT match, cuz they were both the same
+            // so changed
+            while (ts != null && tb != null && 
+                (ts.isMarket() || tb.isMarket() || tb.getPrice() >= ts.getPrice()))
+                // now market orders match
+                // and the limit orders match
+            {
+
             int ss = 0; 
             if(ts.getShares()<tb.getShares()){
                 ss = ts.getShares();
