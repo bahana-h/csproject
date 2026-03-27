@@ -22,15 +22,36 @@ public class MyTests_Stock {
         System.out.println("\n===== Stock Tests =====");
         testStockConstructor();
         testStockGetQuote1();
+        testPlaceOrder();
+        testExecuteOrder();
     }
 
     private static void testStockConstructor() {
         System.out.println("\nRunning testStockConstructor...");
-        System.out.println("Expected: GGGL, 10.00");
-        System.out.println("Actual: " + to.getStockSymbol() + ", " + to.getLastPrice());
+        System.out.println("Expected: GGGL, 10.00, 10.00, Giggle.com, 10.00, 10.00, 0, [], []");
+        System.out.println("Actual: " + to.getStockSymbol() + ", " + to.getLastPrice() + ", "+ to.getCompanyName()+", "+ to.getLoPrice()+", "+to.getHiPrice()+", "+to.getVolume()+", "+to.getBuyOrders()+", "+to.getSellOrders());
     }
-    private static void testMailboxAfterPlaceOrder(){
-        
+    private static void testPlaceOrder(){
+        TradeOrder sell = new TradeOrder(b, "GGGL", false, false, 300, 12.75);
+        to.placeOrder(sell);
+        System.out.println("\nRunning testPlaceOrder(sell)...");
+        System.out.println("Expected: New order: Sell GGGL (Giggle.com)\n300 shares at 12.75");
+        System.out.println("Actual:\n" + b.mailbox().peek());
+        System.out.println("\nRunning testPlaceOrder(buy)...");
+        TradeOrder buy = new TradeOrder(s, "GGGL", true, false, 400, 12.75);
+        to.placeOrder(buy);
+        System.out.println("Expected: New order: Buy GGGL (Giggle.com)\n400 shares at 12.75");
+        System.out.println("Actual:\n" + s.mailbox().peek());
+    }
+    private static void testExecuteOrder(){
+        TradeOrder buy2 = new TradeOrder(s, "GGGL", true, true, 100, 14.00);
+        to.placeOrder(buy2);
+        TradeOrder sell = new TradeOrder(b, "GGGL", false, false, 300, 12.75);
+        to.placeOrder(sell);
+        TradeOrder sell2 = new TradeOrder(b, "GGGL", false, true, 100, 14.75);
+        to.placeOrder(sell2);
+        TradeOrder buy = new TradeOrder(s, "GGGL", true, false, 400, 12.75);
+        to.placeOrder(buy);
     }
     private static void testStockGetQuote1(){
         System.out.println("\nRunning testGetQuote...");

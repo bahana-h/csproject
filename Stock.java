@@ -172,8 +172,7 @@ result += " Bid: ";
             // a valid sale condition didn't even exist lmao
             // because the loop ran when the orders DID NOT match, cuz they were both the same
             // so changed
-            while (ts != null && tb != null && 
-                (ts.isMarket() || tb.isMarket() || tb.getPrice() >= ts.getPrice()))
+            while (ts != null && tb != null && (ts.isMarket() || tb.isMarket() || tb.getPrice() >= ts.getPrice()))
                 // now market orders match
                 // and the limit orders match
             {
