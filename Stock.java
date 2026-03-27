@@ -64,6 +64,17 @@ result += " Bid: ";
 //   Ask: none  Bid: 12.50 size: 200
     }
 
+
+// allright allright
+// *alright
+
+// last correctness test that came back as an error is here...
+//this town's too small for the two of us buddy
+
+// good bad and ugly theme plays
+// wah wah wah
+
+
     public void placeOrder(TradeOrder order){//CHECK WHITE SPACE THINGS
         // hnnah comments: omgs hopefully i didnt break this T_T
         /*
@@ -77,26 +88,64 @@ result += " Bid: ";
 // Or, for market orders:
 //   New order:  Sell GGGL (Giggle.com)
 //   150 shares at market
+
+        // u only use this as part of the end message i think
         String msg = "New order:  ";
-        if(order.isBuy()){
+
+
+    // now we seperate them by buy or sell
+
+    // FORMAT ISSUE
+    // on the safetrade documentation
+    // you have to put "at market" it it's at market
+    // neha i think you brought this up in class
+
+        if(order.isBuy())
+        {
             msg += "Buy " + stockSymbol + " (" + companyName + ")\n";
-            msg+= order.getShares() + " shares at $"+ money.format(order.getPrice());
+            msg+= order.getShares() + " shares at ";
+            
+            if (order.isMarket())
+            {
+                msg = msg + "market";
+
+            }
+
+            else
+            {
+                msg = msg + "$" + money.format(order.getPrice());
+            }
+
+            // add it 
             buyOrders.add(order);
         }
-        else{
+
+        // now for the sell
+
+        else
+        {
             msg += "Sell " + stockSymbol + " (" + companyName + ")\n";
             msg+= order.getShares() + " shares at ";
-            if(order.isMarket()){
+
+            if(order.isMarket())
+            {
                 msg+="market";
             }
-            else{
-                msg+= "$"+money.format(order.getPrice());
+            else
+            {
+                msg+= "$" + money.format(order.getPrice());
             }
+
+
             sellOrders.add(order);
         }
-        order.getTrader().receiveMessage(msg);;
 
 
+
+        order.getTrader().receiveMessage(msg);
+
+
+        // at the end this thing's right
         executeOrders();
     }
 
