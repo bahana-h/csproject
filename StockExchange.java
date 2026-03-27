@@ -64,17 +64,36 @@ public class StockExchange // hannah
     public void placeOrder(TradeOrder order) {
         // i think this is just hte same as getquote basically but u need to find the symbol first
         String symbol = order.getSymbol();
+
+        // sashark edits
+        // this is who's placing the order
+        Trader trader = order.getTrader();
+
+
+
+
         if (!listedStocks.containsKey(symbol)) {
             // if does not contain the. symbol
             // sends a message to the trader with the message "XYZ not found"
             // im just printing it because i dont know how to send it to trader
-            System.out.println(symbol + " not found");
+
+            // YES YES YES I FOUND THE ISSUE
+            // "I'M JUST PRINTING IT " OH YESYESYEYSYESY
+            // EASY FIX BY SENDING IT TO TRADER
+            // W comments
+
+            //System.out.println(symbol + " not found");
             // receiveMessage(symbol + " not found") <- u gotta send it to a xertain trader though?
-        } else {
+            trader.receiveMessage(symbol + "not found");
+        } 
+        
+        else 
+        {
             // if does contain: pplaces it for given stock
             Stock found = listedStocks.get(symbol);
             // and then use that to place order using stock,placeorder
             found.placeOrder(order);
+            
         }
     }
 
