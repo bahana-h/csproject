@@ -84,7 +84,7 @@ public class StockExchange // hannah
 
             //System.out.println(symbol + " not found");
             // receiveMessage(symbol + " not found") <- u gotta send it to a xertain trader though?
-            trader.receiveMessage(symbol + "not found");
+            trader.receiveMessage(symbol + " not found");
         } 
         
         else 
@@ -93,7 +93,7 @@ public class StockExchange // hannah
             Stock found = listedStocks.get(symbol);
             // and then use that to place order using stock,placeorder
             found.placeOrder(order);
-            
+
         }
     }
 
